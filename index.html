@@ -98,13 +98,15 @@
           drawImageIOSFix(context,img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
           var imageData = context.getImageData(0, 0, canvas.width, canvas.height); //Retrieves the pixels of the image from the width and height of the image(which is also the height and width of the canvas).
           var pixels = imageData.data; //Extracts the pixel data from the imageData.
-         for (var i = 0; i < pixels.length; i += 4) {
-                pixels[i] = 0; // set red channel to 0
-                pixels[i + 1] = 0;   
-            }
+         for (var i = 0; i < pixels.length; i += 4) { //I GOT HELP FROM CHATGPT FOR THIS LOOP FUNCTION. THE FOR LOOP IS SUPPOSED TO GO OVER EVERY PIXEL IN THE IMAGE//
+                pixels[i] = 0; //since pixels contain 3 colors, red, blue, and green, to isolate the blue pixels, we set the red and the green pixels to 0. This line set red to 0//
+                pixels[i + 1] = 0; //this line set the green color pixels to 0//
+                
+              }
+         
           
-           var modifiedImageData = new ImageData(pixels, canvas.width, canvas.height);
-              context2.putImageData(modifiedImageData, 0, 0);
+           var modifiedImageData = new ImageData(pixels, canvas.width, canvas.height); //updates the new image with the new blue pixels isolated.
+              context2.putImageData(modifiedImageData, 0, 0);// prints out the image onto myCanvas2//
           
         } // end of img.onload
         
@@ -136,18 +138,18 @@
       <div id="messageDisplayArea"></div>
       
       <canvas id="myCanvas" width=600 height=500 style="border:4px solid #d3d3d3;"></canvas>
-      <canvas id="myCanvas2" width=600 height=500 style="border:4px solid #d3d3d3;"></canvas>
+      <canvas id="myCanvas2" width=600 height=500 style="border:4px solid #d3d3d3;"></canvas> <!-- set a new canvas-->
       <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas" */
         var canvas = document.getElementById('myCanvas');
         var context = canvas.getContext("2d");
         context.font = '20pt Calibri';
         context.fillStyle = "black";
         context.fillText("Original image will go here", 10, 20);
-        var myCanvas2 = document.getElementById('myCanvas2');
-        var context2 = myCanvas2.getContext("2d");
-        context2.font = '20pt Calibri';
-        context2.fillStyle = "black";
-        context2.fillText("Blue image will go here", 10, 20);
+        var myCanvas2 = document.getElementById('myCanvas2'); //assign the new canvas into variable myCanvas2//
+        var context2 = myCanvas2.getContext("2d"); //assign the new canvas in 2d//
+        context2.font = '20pt Calibri'; // assign the font of the text that is going to be printed//
+        context2.fillStyle = "black"; // assign the font color//
+        context2.fillText("Blue image will go here", 10, 20); // write blue image will go here 
       </script>
 
     </div><!-- /content  -->
